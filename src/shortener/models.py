@@ -3,6 +3,7 @@ from django.db import models
 
 # Create your models here.
 from .utils import create_shortcode
+from .validators import validate_url, dot_com_validator
 
 # Model Manager for model Shortener_URL which overrides all() method to return a query string that conatins only active=True
 class Shortener_URLManager(models.Manager):
@@ -21,7 +22,7 @@ class Shortener_URLManager(models.Manager):
         return "New Codes generated:- {i}".format(i=new_codes)
 
 class Shortener_URL(models.Model):
-    url = models.CharField(max_length=220, )
+    url = models.CharField(max_length=220, validators=[validate_url, dot_com_validator])
     shortcode = models.CharField(max_length=22, unique=True, blank=True)
     updated = models.DateTimeField(auto_now=True)  #Everytime the model was saved
     timestamp= models.DateTimeField(auto_now_add=True) #Everytime the model was created
