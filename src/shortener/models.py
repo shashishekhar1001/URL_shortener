@@ -1,5 +1,6 @@
 
 from django.db import models
+from django.core.urlresolvers import reverse
 
 # Create your models here.
 from .utils import create_shortcode
@@ -35,6 +36,10 @@ class Shortener_URL(models.Model):
         if self.shortcode == "" or self.shortcode is None:
             self.shortcode = create_shortcode(self)
         super(Shortener_URL, self).save(*args, **kwargs)
+    
+    def get_short_url(self):
+        urlpath = reverse("scode", kwargs={"shortcode":self.shortcode})
+        return urlpath
 
     def __str__(self):
         return str(self.url) 
