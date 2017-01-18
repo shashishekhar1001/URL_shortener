@@ -22,6 +22,7 @@ def home(request):
     form = SubmitUrlForm(request.POST or None)
     context = {"form":form}
     template = "home.html"
+    current_site = get_current_site(request)    
     if request.method == "POST":
         if form.is_valid():
             new_url = "http://" + request.POST.get("url")
@@ -29,12 +30,14 @@ def home(request):
             obj, created = Shortener_URL.objects.get_or_create(url=new_url)
             if created:
                 template = "success.html"
-                context = {"obj":obj, "created":created}
             else:
                 template = "already-exists.html"
-                context = {"obj":obj, "created":created}                
+            context = {"obj":obj, "created":created, "current_site":current_site}                
     return render(request, template, context)
 
 
 def test(request):
-    return render(request, "test.html", {})
+    current_site = get_current_site(request)
+    return render(request, "test.html", {"current_site":current_site})
+
+

@@ -15,10 +15,11 @@ Including another URLconf
 """
 from django.conf.urls import url
 from django.contrib import admin
-from shortener.views import shortener_fbv, home
+from shortener.views import shortener_fbv, home, test
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url(r'^shortener/home/$', home),
+    url(r'^shortener/test/$', test),    
     url(r'^shortener/(?P<shortcode>[\w-]+)/$', shortener_fbv, name="scode"),
 ]
