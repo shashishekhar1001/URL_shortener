@@ -39,7 +39,7 @@ class Shortener_URL(models.Model):
     
     def get_short_url(self):
         urlpath = reverse("scode", kwargs={"shortcode":self.shortcode})
-        return urlpath
+        return "localhost:8080" + urlpath 
 
     def __str__(self):
         return str(self.url) 

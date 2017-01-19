@@ -3,6 +3,7 @@ from django.http import HttpResponseRedirect
 
 from django.contrib.sites.shortcuts import get_current_site
 
+from analytics.models import ClickEvent
 from .models import Shortener_URL 
 from .forms import SubmitUrlForm
 
@@ -14,6 +15,7 @@ def shortener_fbv(request, shortcode = None, *args, **kwargs):
     obj_url = None
     qs = Shortener_URL.objects.filter(shortcode__iexact=shortcode.upper())
     if qs.exists() and qs.count() == 1:
+        ClickEvent.objects.create_event(qs[0])
         obj_url = qs[0].url
         return HttpResponseRedirect(obj_url)
     return render(request, "shortener.html", {"shortcode": obj_url})
