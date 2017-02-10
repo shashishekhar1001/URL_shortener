@@ -1,8 +1,14 @@
-<div>
-    <h1>Hi There</h1>
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+
+{% block content %}
+<div class="hero">
+<div class="centered">
     <form method="POST" action=".">{% csrf_token %}
-        <!--<input type="text" name="url" placeholder="Shorten your URL like http://www.bloggerspot.com" />-->
-        {{ form.as_p }}
-        <input type="submit" value="SUBMIT">
+        {{ form|crispy }}
+        <input class='btn btn-success' type="submit" value="SHORTEN">
     </form>
 </div>
+</div>
+
+{% endblock %}

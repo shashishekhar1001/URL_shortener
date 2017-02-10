@@ -13,13 +13,23 @@ Including another URLconf
     1. Import the include() function: from django.conf.urls import url, include
     2. Add a URL to urlpatterns:  url(r'^blog/', include('blog.urls'))
 """
-from django.conf.urls import url
+from django.conf import settings
+from django.conf.urls import url, include
+from django.conf.urls.static import static
 from django.contrib import admin
-from shortener.views import shortener_fbv, home, test
+from shortener.views import shortener_fbv, home, test, dashboard
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
-    url(r'^shortener/home/$', home),
+    url(r'^$', home),
+    url(r'^dashboard/$', dashboard),
     url(r'^shortener/test/$', test),    
     url(r'^shortener/(?P<shortcode>[\w-]+)/$', shortener_fbv, name="scode"),
+    url(r'^accounts/', include('allauth.urls')),    
 ]
+
+
+if settings.DEBUG:
+	urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
+	urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+

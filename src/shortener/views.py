@@ -2,9 +2,9 @@ from django.shortcuts import render
 from django.http import HttpResponseRedirect
 
 from django.contrib.sites.shortcuts import get_current_site
-
+from django.contrib.auth.decorators import login_required
 from analytics.models import ClickEvent
-from .models import Shortener_URL 
+from .models import Shortener_URL, Customer_URL
 from .forms import SubmitUrlForm
 
 # Create your views here.
@@ -34,6 +34,8 @@ def home(request):
                 template = "success.html"
             else:
                 template = "already-exists.html"
+            instance, flag = Customer_URL.objects.get_or_create(customer=request.user, paid_url=obj)
+            instance.save()
             context = {"obj":obj, "created":created, "current_site":current_site}                
     return render(request, template, context)
 
@@ -42,4 +44,7 @@ def test(request):
     current_site = get_current_site(request)
     return render(request, "test.html", {"current_site":current_site})
 
-
+@login_required
+def dashboard(request):
+    qs = Customer_URL.objects.filter(customer=request.user)
+    return render(request, "dashboard.html", {"qs":qs})
