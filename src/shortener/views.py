@@ -20,6 +20,7 @@ def shortener_fbv(request, shortcode = None, *args, **kwargs):
         return HttpResponseRedirect(obj_url)
     return render(request, "shortener.html", {"shortcode": obj_url})
 
+@login_required
 def home(request):
     form = SubmitUrlForm(request.POST or None)
     context = {"form":form}

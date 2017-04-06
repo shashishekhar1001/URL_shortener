@@ -1,8 +1,68 @@
-.jumbotron {
-    position: relative;
-    background-image: url(St.jpg);
-    width: 100%;
-    height: 100%;
-    background-size: center;
-    overflow: hidden;
+.custom-nav {
+    background-color: #480c3f !important;
+}
+.navbar-inverse .navbar-brand {
+    color: white !important;
+    font-family: 'Orbitron', sans-serif;
+    font-size: xx-large;
+}
+
+.navbar-right
+{
+    font-family: 'Righteous', cursive;
+    font-size: medium;
+}
+
+li > a
+{
+    text-align: center;
+}
+.footer {
+    position: absolute;
+    bottom: 0;
+    width: 100% !important;
+    height: 60px;
+    background-color: #230820 !important;
+    margin-bottom: 0px !important;
+}
+
+.hero
+{
+    width: 75%;
+    height: 100px;
+
+    position: absolute;
+    top:0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+
+    margin: auto;
+
+}
+
+.hero2
+{
+    width: 75%;
+    height: 478px;
+
+    position: absolute;
+    top:0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+
+    margin: auto;
+
+}
+
+.centered
+{
+    text-align: center;
+}
+
+
+.btn-success {
+    border-radius: 25px !important;
+    width: 200px;
 }
